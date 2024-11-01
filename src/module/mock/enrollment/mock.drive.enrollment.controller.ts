@@ -1,6 +1,7 @@
-import { Controller, Get, Param, ParseUUIDPipe, Post, Request } from "@nestjs/common";
+import { Controller, Get, Param, ParseUUIDPipe, Post, Request, UseGuards } from "@nestjs/common";
 import { MockDriveEnrollmentService } from "./mock.drive.enrollment.service";
 import { ApiTags } from "@nestjs/swagger";
+import { CustomCheckMockDriveEnrollmentGuard } from "src/common/guard/custom.check.mock.drive.enrollment.guard";
 
 
 @ApiTags("mock drive enrollment")
@@ -16,6 +17,7 @@ export class MockDriveEnrollmentController {
 
 
     @Get(":mockId/enrollment")
+    @UseGuards(CustomCheckMockDriveEnrollmentGuard)
     async getUserEnrollmentByMockId(@Request() req, @Param("mockId", new ParseUUIDPipe()) mockId: string) {
         return await this.mockDriveenrollmentService.getUserEnrollmentByMockId(req.user.id, mockId);
     }
