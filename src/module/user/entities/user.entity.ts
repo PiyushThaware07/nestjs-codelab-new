@@ -1,7 +1,9 @@
 import { MockDriveEnrollmentEntity } from "src/module/mock/enrollment/entities/mock.drive.enrollment.entity";
 import { MockDriveEntity } from "src/module/mock/mock/entities/mock.drive.entity";
 import { QuizCategoryEntity } from "src/module/quiz/category/entities/quiz.category.entity";
+import { QuizQuestionBankEntity } from "src/module/quiz/question_bank/entities/quiz.question.bank.entity";
 import { QuizEntity } from "src/module/quiz/quiz/entities/quiz.entity";
+import { QuizQuestionEntity } from "src/module/quiz/quiz_question/entities/quiz.question.entity";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
 
 
@@ -69,18 +71,27 @@ export class UserEntity extends BaseEntity {
 
 
 
-    @OneToMany(() => MockDriveEntity, mockDrive => mockDrive.user,{cascade:true})
+    @OneToMany(() => MockDriveEntity, mockDrive => mockDrive.user, { cascade: true })
     mockDrives: MockDriveEntity[];
 
 
-    @OneToMany(() => MockDriveEnrollmentEntity, mockDriveEnrollment => mockDriveEnrollment.user,{cascade:true})
+    @OneToMany(() => MockDriveEnrollmentEntity, mockDriveEnrollment => mockDriveEnrollment.user, { cascade: true })
     mockDriveEnrollments: MockDriveEnrollmentEntity[];
 
 
     @OneToMany(() => QuizCategoryEntity, quizCategory => quizCategory.user, { cascade: true })
-    quiz_categories: QuizCategoryEntity[];
+    quizCategories: QuizCategoryEntity[];
 
 
     @OneToMany(() => QuizEntity, quiz => quiz.user, { cascade: true })
     quizs: QuizEntity[];
+
+
+
+    @OneToMany(() => QuizQuestionBankEntity, quizQuestionBank => quizQuestionBank.user, { cascade: true })
+    questionBank: QuizQuestionBankEntity[];
+
+
+    @OneToMany(() => QuizQuestionEntity, quizQuestion => quizQuestion.user , {cascade:true})
+    quizQuestions: QuizQuestionEntity[];
 }

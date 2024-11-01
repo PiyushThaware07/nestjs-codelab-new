@@ -34,7 +34,7 @@ export class QuizCategoryEntity {
 
     @Column({ type: "uuid" })
     created_by: string;
-    @ManyToOne(() => UserEntity, user => user.quiz_categories, { onDelete: "SET NULL" })
+    @ManyToOne(() => UserEntity, user => user.quizCategories, { onDelete: "SET NULL" })
     @JoinColumn({ name: "created_by" })
     user: UserEntity;
 }

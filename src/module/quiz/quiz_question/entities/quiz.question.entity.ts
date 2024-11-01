@@ -1,11 +1,35 @@
 import { UserEntity } from "src/module/user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { QuizQuestionEntity } from "../../quiz_question/entities/quiz.question.entity";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { QuizEntity } from "../../quiz/entities/quiz.entity";
+import { QuizQuestionBankEntity } from "../../question_bank/entities/quiz.question.bank.entity";
 
-@Entity("quiz_question_bank")
-export class QuizQuestionBankEntity {
+@Entity("quiz_question")
+export class QuizQuestionEntity {
     @PrimaryGeneratedColumn("uuid")
     id: string;
+
+
+
+    @Column({ type: "uuid" })
+    quiz_id: string;
+    @ManyToOne(() => QuizEntity, quiz => quiz.quizQuestions, { onDelete: "CASCADE" })
+    @JoinColumn({ name: "quiz_id" })
+    quiz: QuizEntity;
+
+
+
+
+    @Column({ type: "uuid" })
+    question_id: string;
+    @ManyToOne(() => QuizQuestionBankEntity, questionBank => questionBank.quizQuestions, { onDelete: "CASCADE" })
+    @JoinColumn({ name: "question_id" })
+    questionBank: QuizQuestionBankEntity;
+
+
+
+    @Column()
+    attempt_number: number;
+
 
 
     @Column({ type: "text" })
@@ -78,12 +102,7 @@ export class QuizQuestionBankEntity {
 
     @Column({ type: "uuid" })
     created_by: string;
-    @ManyToOne(() => UserEntity, user => user.questionBank, { onDelete: "CASCADE" })
+    @ManyToOne(() => UserEntity, user => user.quizQuestions, { onDelete: "SET NULL" })
     @JoinColumn({ name: "created_by" })
     user: UserEntity;
-
-
-
-    @OneToMany(() => QuizQuestionEntity, quizQuestion => quizQuestion.questionBank)
-    quizQuestions: QuizQuestionEntity[];
 }

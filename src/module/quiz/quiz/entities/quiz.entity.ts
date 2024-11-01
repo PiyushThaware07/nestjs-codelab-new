@@ -1,6 +1,7 @@
 import { MockDriveEntity } from "src/module/mock/mock/entities/mock.drive.entity";
 import { UserEntity } from "src/module/user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { QuizQuestionEntity } from "../../quiz_question/entities/quiz.question.entity";
 
 @Entity("quiz")
 export class QuizEntity {
@@ -57,4 +58,10 @@ export class QuizEntity {
     @ManyToOne(()=>UserEntity,user => user.quizs,{onDelete:"SET NULL"})
     @JoinColumn({name:"created_by"})
     user: UserEntity;
+
+
+
+
+    @OneToMany(()=>QuizQuestionEntity,quizQuestion=>quizQuestion.quiz,{cascade:true})
+    quizQuestions: QuizQuestionEntity[];
 }
