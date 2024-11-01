@@ -1,8 +1,9 @@
 import { Module } from "@nestjs/common";
 import { QuizCategoryModule } from "./category/quiz.category.module";
+import { QuizQuestionBankModule } from "./question_bank/quiz.question.bank.module";
 
 @Module({
-    imports : [QuizCategoryModule],
+    imports : [QuizCategoryModule,QuizQuestionBankModule],
     controllers : [],
     providers : [],
     exports : []
