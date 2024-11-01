@@ -3,7 +3,6 @@ import { Reflector } from "@nestjs/core";
 import { AuthGuard } from "@nestjs/passport";
 import { Observable } from "rxjs";
 import { PUBLIC_KEY } from "src/common/decorators/public.access";
-import { GqlExecutionContext } from "@nestjs/graphql";
 
 
 
@@ -21,12 +20,6 @@ export class CustomJwtGuard extends AuthGuard("jwt") {
         return super.canActivate(context);
     }
 
-
-    // Graphql Request handler
-    getRequest(context: ExecutionContext) {
-        const ctx = GqlExecutionContext.create(context);
-        return ctx.getContext().req;
-    }
 
 
     handleRequest(err: any, user: any, info: any, context: ExecutionContext) {
