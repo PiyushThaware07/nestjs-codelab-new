@@ -1,5 +1,6 @@
 import { MockDriveEnrollmentEntity } from "src/module/mock/enrollment/entities/mock.drive.enrollment.entity";
 import { MockDriveEntity } from "src/module/mock/mock/entities/mock.drive.entity";
+import { QuizCategoryEntity } from "src/module/quiz/category/entities/quiz.category.entity";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
 
 
@@ -73,4 +74,8 @@ export class UserEntity extends BaseEntity {
 
     @OneToMany(()=>MockDriveEnrollmentEntity,mockDriveEnrollment=>mockDriveEnrollment.user)
     mockDriveEnrollments : MockDriveEnrollmentEntity[];
+
+
+    @OneToMany(()=>QuizCategoryEntity,quizCategory=>quizCategory.user,{cascade:true})
+    quiz_categories : QuizCategoryEntity[];
 }
