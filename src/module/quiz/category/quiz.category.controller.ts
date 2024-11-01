@@ -12,7 +12,7 @@ export class QuizCategoryController {
 
 
     @Post("category/add")
-    async createCategory(@Request() req, @Body() payload: CreateQuizCategoryDTO): Promise<string> {
+    async createCategory(@Request() req, @Body() payload: Partial<CreateQuizCategoryDTO>): Promise<string> {
         return await this.quizCategoryService.createCategory(req.user.id, payload);
     }
 

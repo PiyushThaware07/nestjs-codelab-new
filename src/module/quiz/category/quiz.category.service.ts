@@ -13,7 +13,7 @@ export class QuizCategoryService {
 
 
 
-    async createCategory(userId: string, payload: CreateQuizCategoryDTO): Promise<string> {
+    async createCategory(userId: string, payload: Partial<CreateQuizCategoryDTO>): Promise<string> {
         const existingCategory = await this.quizCategoryRepository.findOne({ where: { name: payload.name } });
         if (existingCategory) throw new HttpException("quiz category already exists", HttpStatus.CONFLICT);
         const newCategory = this.quizCategoryRepository.create({ ...payload, created_by: userId });
