@@ -1,6 +1,7 @@
 import { UserEntity } from "src/module/user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { MockDriveEnrollmentEntity } from "../../enrollment/entities/mock.drive.enrollment.entity";
+import { QuizEntity } from "src/module/quiz/quiz/entities/quiz.entity";
 
 
 export enum MockDriveCategory {
@@ -68,12 +69,16 @@ export class MockDriveEntity {
 
     @Column({ type: "uuid" })
     created_by: string;
-    @ManyToOne(() => UserEntity, user => user.mockDrives)
+    @ManyToOne(() => UserEntity, user => user.mockDrives, { onDelete: "CASCADE" })
     @JoinColumn({ name: "created_by" })
     user: UserEntity;
 
 
 
-    @OneToMany(() => MockDriveEnrollmentEntity, mockDriveEnrollment => mockDriveEnrollment.mockDrive)
+    @OneToMany(() => MockDriveEnrollmentEntity, mockDriveEnrollment => mockDriveEnrollment.mockDrive, { cascade: true })
     enrollments: MockDriveEnrollmentEntity[];
+
+
+    @OneToOne(() => QuizEntity, quiz => quiz.mock_drive, { cascade: true })
+    quiz: QuizEntity;
 }

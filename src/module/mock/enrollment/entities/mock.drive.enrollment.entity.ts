@@ -12,7 +12,7 @@ export class MockDriveEnrollmentEntity {
 
     @Column({ type: "uuid" })
     mock_drive_id: string;
-    @ManyToOne(() => MockDriveEntity, mockDrive => mockDrive.enrollments)
+    @ManyToOne(() => MockDriveEntity, mockDrive => mockDrive.enrollments,{onDelete:"CASCADE"})
     @JoinColumn({ name: "mock_drive_id" })
     mockDrive: MockDriveEntity;
 
@@ -21,7 +21,7 @@ export class MockDriveEnrollmentEntity {
 
     @Column({ type: "uuid", nullable: true })
     user_id: string;
-    @ManyToOne(() => UserEntity, user => user.mockDriveEnrollments)
+    @ManyToOne(() => UserEntity, user => user.mockDriveEnrollments,{onDelete:"SET NULL"})
     @JoinColumn({ name: "user_id" })
     user: UserEntity;
 
